@@ -46,7 +46,8 @@ public class User {
     @Column(name = "image")
     private String image;
 
-
+    @OneToOne(mappedBy = "user")
+    private Shop shop;
 
 
     public User(String image, String username, String password, Boolean active, String phone, String email, String title) {
