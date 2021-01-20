@@ -51,4 +51,5 @@ public class Shop {
     @JoinColumn(name = "user_id")
     private User user;
 
+
 }

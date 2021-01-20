@@ -1,5 +1,6 @@
 package com.saleor.saleor_api.table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,7 @@ public class ProductCatogories {
     @Temporal(TemporalType.TIMESTAMP)
     Date modifiedDate = new Date();
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "ware_house_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
