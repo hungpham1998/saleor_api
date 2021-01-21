@@ -1,4 +1,4 @@
-package com.vvlanding.control.controlpublic;
+package com.saleor.saleor_api.control.controlpublic;
 
 import com.saleor.saleor_api.reponse.message.ResponseStatusMessage;
 import com.saleor.saleor_api.service.AddressService;
