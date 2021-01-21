@@ -1,6 +1,7 @@
 package com.saleor.saleor_api.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,20 +23,12 @@ public class ImportTicketDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "import_quantity", nullable = false)
+    private Long importQuantity;
+
     @Column(name = "import_price", nullable = false)
     private Long importPrice;
 
-    @Column(name = "total_price", nullable = false)
-    private Long totalPrice;
-
-    @Column(name = "add_quantity", nullable = false)
-    private Long addQuantity;
-
-    @Column(name = "current_quantity", nullable = false)
-    private Long currentQuantity;
-
-    @Column(name = "new_quantity", nullable = false)
-    private Long newQuantity;
 
     @Column(name = "sku", nullable = false)
     private String sku;
@@ -49,6 +42,11 @@ public class ImportTicketDetail {
     @JsonIgnore
     private List<ImportTicket> importTickets;
 
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnoreProperties("importTicketDetails")
+    private Product product;
 
     // product id
 

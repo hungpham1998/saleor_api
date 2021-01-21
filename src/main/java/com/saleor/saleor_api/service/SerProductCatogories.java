@@ -1,7 +1,8 @@
 package com.saleor.saleor_api.service;
 
-import com.saleor.saleor_api.repo.RepoSupplier;
-import com.saleor.saleor_api.table.Supplier;
+import com.saleor.saleor_api.repo.RepoProductCatogories;
+import com.saleor.saleor_api.table.ProductCatogories;
+import com.saleor.saleor_api.table.User;
 import com.saleor.saleor_api.table.WareHouse;
 import com.saleor.saleor_api.utils.filterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,45 +13,35 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class SerSupplier {
+public class SerProductCatogories {
+
     @Autowired
-    RepoSupplier repoSupplier;
+    RepoProductCatogories repoProductCatogories;
+
+    @Autowired
+    SerUser serUser;
 
     Map<String,Object> reponse = new HashMap<>();
 
-    public  Object save(Supplier payload){
-        try {
-            Supplier data = repoSupplier.save(payload);
+    public Object save(ProductCatogories response){
+        try{
+            ProductCatogories newdata = repoProductCatogories.save(response);
+            reponse.put("data", newdata);
             reponse.put("success", true);
             reponse.put("mesager", "ok");
-            reponse.put("data", data);
             return reponse;
         }
         catch (Exception e){
             reponse.put("success", false);
-            reponse.put("mesager",e.getMessage());
-            return reponse;
-        }
-
-    }
-
-    public Object findByQuery(String query){
-        try {
-            Optional<Supplier> opSupplier = repoSupplier.findByPhoneContainingOrTitleContaining(query, query);
-                Object data = filterObject.filter(opSupplier, "Khong tim thấy nhà cung cấp ");
-                return data;
-        }
-        catch (Exception e){
-            reponse.put("success", false);
-            reponse.put("mesager",e.getMessage());
-            return reponse;
+            reponse.put("mesager", e.getMessage());
+            return  reponse;
         }
     }
 
     public Object findById(Long id){
         try {
-            Optional<Supplier> opSupplier = repoSupplier.findById(id);
-            Object data = filterObject.filter(opSupplier, "Khong tim thấy nhà cung cấp ");
+            Optional<ProductCatogories> opCatogories = repoProductCatogories.findById(id);
+            Object data = filterObject.filter(opCatogories, "Khong tim thấy danh muc san pham ");
             return data;
         }
         catch (Exception e){
@@ -62,13 +53,13 @@ public class SerSupplier {
 
     public Object delete(Long id){
         try{
-            Optional<Supplier> opSupplier = repoSupplier.findById(id);
-            if(!opSupplier.isPresent()){
+            Optional<ProductCatogories> opCatogories = repoProductCatogories.findById(id);
+            if(!opCatogories.isPresent()){
                 reponse.put("success", false);
-                reponse.put("mesager","khong tim thay id kho ");
+                reponse.put("mesager","Khong tim thấy danh muc san pham ");
                 return reponse;
             }
-            repoSupplier.deleteById(id);
+            repoProductCatogories.deleteById(id);
             reponse.put("success", true);
             reponse.put("mesager","xoa thanh cong");
             return reponse;
@@ -79,5 +70,4 @@ public class SerSupplier {
             return reponse;
         }
     }
-
 }

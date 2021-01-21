@@ -14,5 +14,6 @@ public interface RepoSupplier extends JpaRepository<Supplier, Long> {
 
     Optional<Supplier> findByPhoneContainingOrTitleContaining(String phone, String title);
 
+    void delete(long id);
 
 }

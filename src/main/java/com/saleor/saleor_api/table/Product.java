@@ -1,6 +1,7 @@
 package com.saleor.saleor_api.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,6 +74,16 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Unit_id")
     private Units units;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private Set<ImportTicketDetail> importTicketDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "product_catogories_id", nullable = false)
+    @JsonIgnoreProperties("products")
+    private ProductCatogories productCatogories;
+
 
     //   unit 1-n product
 //    @JsonIgnore

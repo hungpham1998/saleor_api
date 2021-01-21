@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,9 +50,13 @@ public class ProductCatogories {
     Date modifiedDate = new Date();
 
     @JsonIgnore
-    @ManyToOne()
-    @JoinColumn(name = "ware_house_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private WareHouse wareHouse;
+    @OneToMany(mappedBy = "productCatogories", fetch = FetchType.LAZY)
+    private Set<Product> products;
+
+//    @JsonIgnore
+//    @ManyToOne()
+//    @JoinColumn(name = "ware_house_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private WareHouse wareHouse;
 
 }

@@ -18,13 +18,6 @@ public class SerUser {
     @Autowired
     RepoUser repoUser;
 
-
-
-//    @Autowired
-//    DtoShopInfo dtoShopInfo;
-//
-//    @Autowired
-//    MapperShopInfo mapperShopInfo;
     public List<User> GetAll()
     {
         return repoUser.findAll();

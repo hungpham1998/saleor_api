@@ -54,8 +54,8 @@ public class WareHouse {
     @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)
     private Set<ImportTicket> importTickets;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)
-    private Set<ProductCatogories> productCatogories;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)
+//    private Set<ProductCatogories> productCatogories;
     
 }
