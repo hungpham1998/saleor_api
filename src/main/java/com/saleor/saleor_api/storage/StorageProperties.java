@@ -15,7 +15,7 @@ public class StorageProperties {
 
     private String shopLogoLocation = "shop_logo";
 
-    private String avatarLocation = "member-avatars";
+    private String avatarLocation = "member_avatars";
 
-    private String avatarReviewer = "reviewer-image";
+    private String avatarReviewer = "reviewer_image";
 }
