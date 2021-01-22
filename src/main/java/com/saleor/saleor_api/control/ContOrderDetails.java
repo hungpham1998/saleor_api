@@ -1,7 +1,10 @@
 package com.saleor.saleor_api.control;
+
 import com.saleor.saleor_api.data.Resp;
-import com.saleor.saleor_api.service.SerProduct;
-import com.saleor.saleor_api.table.Product;
+import com.saleor.saleor_api.service.SerOrderDetail;
+import com.saleor.saleor_api.service.SerOrders;
+import com.saleor.saleor_api.table.OrderDetail;
+import com.saleor.saleor_api.table.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +17,10 @@ import java.util.Map;
 import java.util.Optional;
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("api/product")
-
-public class ContProduct {
+@RequestMapping("api/orderdetail")
+public class ContOrderDetails {
     @Autowired
-    SerProduct serProduct;
+    SerOrderDetail serOrderDetail;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @CrossOrigin(origins = "*", maxAge = 3600)
@@ -27,7 +29,7 @@ public class ContProduct {
         Resp resp = new Resp();
         Map<String, Object> response =  new HashMap<>();
         try {
-            List<Product> data = serProduct.GetAll();
+            List<OrderDetail> data = serOrderDetail.GetAll();
             resp.setSuccess(true);
             resp.setMsg("Ok");
             resp.setData(data);
@@ -50,9 +52,9 @@ public class ContProduct {
     {
         Map<String, Object> response =  new HashMap<>();
         try {
-            Optional<Product> optional = serProduct.GetByID(id);
-            Product product = optional.get();
-            response.put("data",product);
+            Optional<OrderDetail> optional = serOrderDetail.GetByID(id);
+            OrderDetail orderDetail = optional.get();
+            response.put("data",orderDetail);
             response.put("success",true);
             response.put("message", "Ok");
             return new ResponseEntity<>(response,HttpStatus.OK);
@@ -67,24 +69,24 @@ public class ContProduct {
 
     @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", maxAge = 3600)
-    public ResponseEntity<?> Insert(@RequestBody Product product)
+    public ResponseEntity<?> Insert(@RequestBody OrderDetail orderDetail)
     {
-        return new ResponseEntity<>(serProduct.InsertData(product), HttpStatus.OK);
+        return new ResponseEntity<>(serOrderDetail.InsertData(orderDetail), HttpStatus.OK);
     }
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @CrossOrigin(origins = "*", maxAge = 3600)
-    public ResponseEntity<?> Update(@RequestBody Product product)
+    public ResponseEntity<?> Update(@RequestBody OrderDetail orderDetail)
     {
-        return new ResponseEntity<>(serProduct.UpdateData(product), HttpStatus.OK);
+        return new ResponseEntity<>(serOrderDetail.UpdateData(orderDetail), HttpStatus.OK);
     }
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     @CrossOrigin(origins = "*", maxAge = 3600)
     public ResponseEntity<?> Delete(@RequestParam(value = "id", required =false) Long id) {
-        Product data= serProduct.GetByID(id).orElse(null);
+        OrderDetail data= serOrderDetail.GetByID(id).orElse(null);
         if (data == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else{
-            serProduct.Delete(id);
+            serOrderDetail.Delete(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
     }

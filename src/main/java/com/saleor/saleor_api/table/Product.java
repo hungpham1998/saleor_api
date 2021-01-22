@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -66,6 +67,12 @@ public class Product {
     @Column(name = "descs") // mô tả sp
     private String descs;
 
+    @Column(name = "quantity_sold") //Số lượng đã bán
+    private Double quantity_sold;
+
+    @Column(name = "quantity_current") // Số lượng hiện tại
+    private Double quantity_current;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "ref_product_images")
     private List<String> images;
@@ -74,8 +81,27 @@ public class Product {
     @JoinColumn(name = "Unit_id")
     private Units units;
 
-    //   unit 1-n product
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "product_properties", fetch = FetchType.LAZY)
-//    private Set<ProductProperties> productProperties ;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<ProductProperties> listProductProperties = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "orderDetail_id",nullable = false)
+    private OrderDetail orderDetail;
+
+    @ManyToOne
+    @JoinColumn(name = "importTicketDetail_id",nullable = false)
+    private ImportTicketDetail importTicketDetail;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "ref_product_preperies",
+            joinColumns = @JoinColumn(
+                    name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "product_catogories_id", referencedColumnName = "id"))
+    @JsonIgnore
+    private List<ProductCatogories> productCatogories;
 }

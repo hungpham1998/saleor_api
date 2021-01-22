@@ -11,5 +11,4 @@ public interface RepoProductCatogories extends JpaRepository<ProductCatogories, 
 
     Optional<ProductCatogories> findByTitleContainingOrCodeContaining(String title, String code);
 
-
 }

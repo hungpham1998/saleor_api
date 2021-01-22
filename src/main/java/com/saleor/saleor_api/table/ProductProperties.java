@@ -19,11 +19,13 @@ public class ProductProperties {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "key")
-    private String key;
+    @Column(name = "product_key")
+    private String product_key;
 
-    @Column(name = "value")
-    private String value;
+    @Column(name = "product_value")
+    private String product_value;
 
-
+    @ManyToOne
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
 }

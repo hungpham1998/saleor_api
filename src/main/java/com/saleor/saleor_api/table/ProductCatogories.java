@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,4 +55,12 @@ public class ProductCatogories {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private WareHouse wareHouse;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "productCatogories")
+    @JsonIgnore
+    private List<Product> products;
 }

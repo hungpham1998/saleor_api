@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,4 +33,13 @@ public class OrderDetail {
 
     @Column(name = "weight")
     private Float weight;
+
+    @ManyToOne
+    @JoinColumn(name = "orders_id",nullable = false)
+    private Orders orders;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderDetail")
+    private Set<Product> listProduct = new HashSet<>();
+
 }

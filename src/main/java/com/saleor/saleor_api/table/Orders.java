@@ -1,10 +1,13 @@
 package com.saleor.saleor_api.table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -63,5 +66,13 @@ public class Orders {
     @Column(name = "modifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     Date modifiedDate ;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id",nullable = false)
+    private Customer customer;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orders")
+    private Set<OrderDetail> listOrderDetail = new HashSet<>();
 
 }
