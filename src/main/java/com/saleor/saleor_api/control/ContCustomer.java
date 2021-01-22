@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 @Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("api/customer")
 public class ContCustomer {
     @Autowired
     SerCustomer serCustomer;
