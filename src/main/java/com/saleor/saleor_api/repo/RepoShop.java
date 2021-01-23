@@ -16,4 +16,5 @@ public interface RepoShop  extends JpaRepository<Shop, Long> {
 
     Optional<Shop> findByManagerContaining(String manager);
 
+    void delete(Long id);
 }

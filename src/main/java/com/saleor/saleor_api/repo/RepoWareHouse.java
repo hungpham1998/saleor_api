@@ -9,4 +9,6 @@ public interface RepoWareHouse extends JpaRepository<WareHouse, Long> {
     Optional<WareHouse> findByPhoneContainingOrTitleContaining(String phone, String title);
     Optional<WareHouse> findByPhoneContaining(String phone);
     Optional<WareHouse> findByTitleContaining(String title);
+
+    void delete(long id);
 }
