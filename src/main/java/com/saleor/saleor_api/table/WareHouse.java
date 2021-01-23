@@ -50,9 +50,9 @@ public class WareHouse {
     @JoinColumn(name = "shop_id")
     private  Shop shop;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)
-    private Set<ImportTicket> importTickets;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)
+//    private Set<ImportTicket> importTickets;
 
 //    @JsonIgnore
 //    @OneToMany(mappedBy = "wareHouse", fetch = FetchType.LAZY)

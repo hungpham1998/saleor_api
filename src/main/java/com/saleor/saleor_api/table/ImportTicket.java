@@ -56,10 +56,10 @@ public class ImportTicket {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Supplier supplier;
 
-    @ManyToOne()
-    @JoinColumn(name = "ware_house_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private WareHouse wareHouse;
+//    @ManyToOne()
+//    @JoinColumn(name = "ware_house_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private WareHouse wareHouse;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
