@@ -1,6 +1,6 @@
 package com.saleor.saleor_api.service;
 
-import com.saleor.saleor_api.mapper.MapperProduct;
+//import com.saleor.saleor_api.mapper.MapperProduct;
 import com.saleor.saleor_api.repo.RepoProduct;
 import com.saleor.saleor_api.table.Product;
 import org.springframework.beans.factory.annotation.Autowired;

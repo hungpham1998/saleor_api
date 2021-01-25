@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -27,33 +29,29 @@ public class ImportTicketDetail {
     @Column(name = "import_price", nullable = false)
     private Long importPrice;
 
+    @Column(name = "unit_id", nullable = false)
+    private Long unitId;
+
     @Column(name = "total_price", nullable = false)
     private Long totalPrice;
 
-    @Column(name = "add_quantity", nullable = false)
-    private Long addQuantity;
+    @Column(name = "total_quantity", nullable = false)
+    private Long totalQuantity;
 
-    @Column(name = "current_quantity", nullable = false)
-    private Long currentQuantity;
-
-    @Column(name = "new_quantity", nullable = false)
-    private Long newQuantity;
 
     @Column(name = "sku", nullable = false)
     private String sku;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "importTicketDetails")
     @JsonIgnore
-    private List<ImportTicket> importTickets;
+    @ManyToOne()
+    @JoinColumn(name = "import_ticket_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ImportTicket importTicket;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "importTicketDetail")
-    private Set<Product> listProduct = new HashSet<>();
-    // product id
+    @ManyToOne()
+    @JoinColumn(name = "product_id",nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product  product;
 
 }

@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface RepoImportTickEtDetail extends JpaRepository<ImportTicketDetail, Long> {
+public interface RepoImportTicketDetail extends JpaRepository<ImportTicketDetail, Long> {
     Optional<ImportTicketDetail> findById(Long id);
 
 }

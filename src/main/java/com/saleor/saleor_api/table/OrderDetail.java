@@ -34,12 +34,18 @@ public class OrderDetail {
     @Column(name = "weight")
     private Float weight;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "orders_id",nullable = false)
     private Orders orders;
 
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderDetail")
-    private Set<Product> listProduct = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "product_id",nullable = false)
+    private Product product;
+
+//    @JsonIgnore
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderDetail")
+//    private Set<Product> listProduct = new HashSet<>();
 
 }

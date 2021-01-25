@@ -85,13 +85,18 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<ProductProperties> listProductProperties = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "orderDetail_id",nullable = false)
-    private OrderDetail orderDetail;
 
-    @ManyToOne
-    @JoinColumn(name = "importTicketDetail_id",nullable = false)
-    private ImportTicketDetail importTicketDetail;
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<OrderDetail> orderDetails = new HashSet<>();
+
+//    @ManyToOne
+//    @JoinColumn(name = "orderDetail_id",nullable = false)
+//    private OrderDetail orderDetail;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<ImportTicketDetail> importTicketDetails = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,

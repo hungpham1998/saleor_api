@@ -1,5 +1,8 @@
 package com.saleor.saleor_api;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saleor.saleor_api.storage.StorageProperties;
 import com.saleor.saleor_api.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +22,8 @@ public class SaleorApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SaleorApiApplication.class, args);
 	}
+
+
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
