@@ -24,9 +24,9 @@ public class DTOImportTicket {
     private String shipCode;
     private Long total;
     private String orderCode;
-    private List<DTOImportTicketDetail> ticketDetailList = new ArrayList<>();
-    private  String supplierTitle;
     private  Long supplierId;
+    private List<DTOImportTicketDetail> importTicketDetails = new ArrayList<>();
+    private  String supplierTitle;
 
     public String getOrderCode() {
         return orderCode;
@@ -108,12 +108,12 @@ public class DTOImportTicket {
         this.total = total;
     }
 
-    public List<DTOImportTicketDetail> getTicketDetailList() {
-        return ticketDetailList;
+    public List<DTOImportTicketDetail> getImportTicketDetails() {
+        return importTicketDetails;
     }
 
-    public void setTicketDetailList(List<DTOImportTicketDetail> ticketDetailList) {
-        this.ticketDetailList = ticketDetailList;
+    public void setImportTicketDetails(List<DTOImportTicketDetail> ticketDetailList) {
+        this.importTicketDetails = ticketDetailList;
     }
 
     public String getSupplierTitle() {

@@ -39,25 +39,36 @@ public class SerImportTicket {
 
     public Object  InsSent(DTOImportTicket repose){
         try{
-            repose.setCreatedDate(new Date());
-            ImportTicket orderTicket = null;
-            orderTicket  = mapperImportTicket.toEntity(repose);
+            ImportTicket orderTicket = new ImportTicket();
+            List<Product> listProduct = repoProduct.findBy();
+            orderTicket.setCreateBy(repose.getCreateBy());
+            orderTicket.setCreatedDate(new Date());
+            orderTicket.setOrderCode(repose.getOrderCode());
+            orderTicket.setModifiedBy(repose.getModifiedBy());
+            orderTicket.setNote(repose.getNote());
+            orderTicket.setModifiedBy(repose.getModifiedBy());
+            orderTicket.setPhone(repose.getPhone());
+            orderTicket.setShipCode(repose.getShipCode());
+            orderTicket.setTitle(repose.getTitle());
+            orderTicket.setTotal(repose.getTotal());
             Optional<Supplier> opSupplier = repoSupplier.findById(repose.getSupplierId());
             if(!opSupplier.isPresent()){
                 response.put("success", false);
                 return response;
             }
-            List<Units>  listUnit = repoUnit.findAll();
-            List<DTOImportTicketDetail> orderTicketDetail = repose.getTicketDetailList();
+            List<Units>  listUnit = repoUnit.findBy();
+            List<DTOImportTicketDetail> orderTicketDetail = repose.getImportTicketDetails();
             ImportTicket newOrder = new ImportTicket();
             orderTicket.setSupplier(opSupplier.get());
             newOrder = repoImportTicket.save(orderTicket);
             repose.setId(newOrder.getId());
             repose.setSupplierTitle(opSupplier.get().getTitle());
-            List<Product> listProduct = repoProduct.findAll();
-            ImportTicketDetail newOrderDetail = null;
             for(DTOImportTicketDetail item : orderTicketDetail){
-                newOrderDetail = mapperImportTicketDetail.toEntity(item);
+                ImportTicketDetail newOrderDetail = new ImportTicketDetail();
+                newOrderDetail.setImportPrice(item.getImportPrice());
+                newOrderDetail.setTotalPrice(item.getTotalPrice());
+                newOrderDetail.setTotalQuantity(item.getTotalQuantity());
+                newOrderDetail.setUnitId(item.getUnitId());
                 for(Product product: listProduct){
                     if(item.getProductId().equals(product.getId())){
                         newOrderDetail.setSku(product.getSku());
@@ -85,4 +96,6 @@ public class SerImportTicket {
             return response;
         }
     }
+
+
 }

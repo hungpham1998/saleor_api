@@ -21,19 +21,19 @@ import java.util.Set;
 @Entity
 
 @Table(name = "import_ticket")
-public class ImportTicket {
+public class ImportTicket  {
     @Id
     @Column( name = "id", nullable = false, unique = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_code", nullable = false)
+    @Column(name = "order_code",nullable = false, unique = false)
     private String orderCode;
 
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title",nullable = false, unique = false)
     private String title;
 
     @Column(name = "create_by")
@@ -50,15 +50,15 @@ public class ImportTicket {
     @Column(columnDefinition = "TEXT")
     private String note;
 
-    @Column(name = "ship_code", nullable = false)
+    @Column(name = "ship_code",nullable = false, unique = false)
     private String shipCode;
 
-    @Column(name = "total", nullable = false)
+    @Column(name = "total",nullable = false, unique = false)
     private Long total;
 
     @JsonIgnore
     @ManyToOne()
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id",nullable = false, unique = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Supplier supplier;
 

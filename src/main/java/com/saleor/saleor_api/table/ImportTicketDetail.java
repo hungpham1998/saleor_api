@@ -26,32 +26,32 @@ public class ImportTicketDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "import_price", nullable = false)
+    @Column(name = "import_price",nullable = false, unique = false)
     private Long importPrice;
 
-    @Column(name = "unit_id", nullable = false)
+    @Column(name = "unit_id",nullable = false, unique = false)
     private Long unitId;
 
-    @Column(name = "total_price", nullable = false)
+    @Column(name = "total_price",nullable = false, unique = false)
     private Long totalPrice;
 
-    @Column(name = "total_quantity", nullable = false)
+    @Column(name = "total_quantity",nullable = false, unique = false)
     private Long totalQuantity;
 
 
-    @Column(name = "sku", nullable = false)
+    @Column(name = "sku",nullable = false, unique = false)
     private String sku;
 
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "import_ticket_id")
-//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private ImportTicket importTicket;
 
     @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "product_id",nullable = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product  product;
 
 }

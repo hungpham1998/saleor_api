@@ -16,8 +16,8 @@ public class DTOImportTicketDetail {
     private Long totalQuantity;
     private String sku;
     private Long productId;
-    private  String productTitle;
     private Long unitId;
+    private  String productTitle;
     private  String unitTitle;
 
     public Long getUnitId() {
