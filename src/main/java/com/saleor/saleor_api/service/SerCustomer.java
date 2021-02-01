@@ -17,10 +17,12 @@ public class SerCustomer {
     {
         return  repoCustomer.findAll();
     }
+
     public Optional<Customer> GetByID(Long id)
     {
         return  repoCustomer.findById(id);
     }
+
     public Customer InsertData(Customer orders) { return repoCustomer.save(orders); }
 
     public Customer UpdateData(Customer orders) { return repoCustomer.save(orders); }

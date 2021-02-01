@@ -40,30 +40,51 @@ public class SerImportTicket {
     public Object  InsSent(DTOImportTicket repose){
         try{
             ImportTicket orderTicket = new ImportTicket();
+
             List<Product> listProduct = repoProduct.findBy();
+
             orderTicket.setCreateBy(repose.getCreateBy());
+
             orderTicket.setCreatedDate(new Date());
+
             orderTicket.setOrderCode(repose.getOrderCode());
+
             orderTicket.setModifiedBy(repose.getModifiedBy());
+
             orderTicket.setNote(repose.getNote());
+
             orderTicket.setModifiedBy(repose.getModifiedBy());
+
             orderTicket.setPhone(repose.getPhone());
+
             orderTicket.setShipCode(repose.getShipCode());
+
             orderTicket.setTitle(repose.getTitle());
+
             orderTicket.setTotal(repose.getTotal());
+
             Optional<Supplier> opSupplier = repoSupplier.findById(repose.getSupplierId());
+
             if(!opSupplier.isPresent()){
                 response.put("success", false);
                 response.put("mesager","không tìm thấy nhà cung cấp ");
                 return response;
             }
+
             List<Units>  listUnit = repoUnit.findBy();
+
             List<DTOImportTicketDetail> orderTicketDetail = repose.getImportTicketDetails();
+
             ImportTicket newOrder = new ImportTicket();
+
             orderTicket.setSupplier(opSupplier.get());
+
             newOrder = repoImportTicket.save(orderTicket);
+
             repose.setId(newOrder.getId());
+
             repose.setSupplierTitle(opSupplier.get().getTitle());
+
             for(DTOImportTicketDetail item : orderTicketDetail){
                 ImportTicketDetail newOrderDetail = new ImportTicketDetail();
                 newOrderDetail.setImportPrice(item.getImportPrice());

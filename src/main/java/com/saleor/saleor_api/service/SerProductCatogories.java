@@ -2,6 +2,7 @@ package com.saleor.saleor_api.service;
 
 import com.saleor.saleor_api.repo.RepoProductCatogories;
 import com.saleor.saleor_api.table.ProductCatogories;
+import com.saleor.saleor_api.table.ProductProperties;
 import com.saleor.saleor_api.table.User;
 import com.saleor.saleor_api.table.WareHouse;
 import com.saleor.saleor_api.utils.filterObject;
@@ -22,7 +23,10 @@ public class SerProductCatogories {
     SerUser serUser;
 
     Map<String,Object> reponse = new HashMap<>();
-
+    public Optional<ProductCatogories> GetByID(Long id)
+    {
+        return  repoProductCatogories.findById(id);
+    }
     public Object save(ProductCatogories response){
         try{
             ProductCatogories newdata = repoProductCatogories.save(response);

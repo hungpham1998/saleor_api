@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,9 +22,15 @@ public class DtoProduct {
 
     private String sku;
 
+    private Boolean isActive;
+
     private String createdBy;
 
+    Date createdDate ;
+
     private String modified_by;
+
+    Date modifiedDate ;
 
     private String barcode;
 
@@ -35,21 +44,18 @@ public class DtoProduct {
 
     private String descs;
 
-    private List<String> catogories;
-    public DtoProduct(long id, String sku, String name, String createdBy, String modified_by, List<String> catogories, String barcode, String qrcode, String content,Double price,Double salePrice,String descs) {
-        this.id = id;
-        this.sku = sku;
-        this.name=name;
-        this.createdBy=createdBy;
-        this.modified_by=modified_by;
-        this.qrcode=qrcode;
-        this.barcode=barcode;
-        this.content=content;
-        this.price=price;
-        this.salePrice=salePrice;
-        this.descs=descs;
-        this.catogories=catogories;
-    }
+    private Double quantity_sold;
+
+    private Double quantity_current;
+
+    private List<String> images;
+
+    private List<DtoProductProperties> dtoProductProperties= new ArrayList<>();
+
+    private Long productCatogories_id;
+
+    private String units;
+
     public Long getId() {
         return id;
     }
@@ -74,6 +80,14 @@ public class DtoProduct {
         this.sku = sku;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -82,12 +96,28 @@ public class DtoProduct {
         this.createdBy = createdBy;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public String getModified_by() {
         return modified_by;
     }
 
     public void setModified_by(String modified_by) {
         this.modified_by = modified_by;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public String getBarcode() {
@@ -138,11 +168,52 @@ public class DtoProduct {
         this.descs = descs;
     }
 
-    public List<String> getCatogories() {
-        return catogories;
+    public Double getQuantity_sold() {
+        return quantity_sold;
     }
 
-    public void setCatogories(List<String> catogories) {
-        this.catogories = catogories;
+    public void setQuantity_sold(Double quantity_sold) {
+        this.quantity_sold = quantity_sold;
+    }
+
+    public Double getQuantity_current() {
+        return quantity_current;
+    }
+
+    public void setQuantity_current(Double quantity_current) {
+        this.quantity_current = quantity_current;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<DtoProductProperties> getProductProperties() {
+        return dtoProductProperties;
+    }
+
+    public void setProductProperties(List<DtoProductProperties> dtoProductProperties) {
+        this.dtoProductProperties = dtoProductProperties;
+    }
+
+    public Long getProductCatogories_id() {
+        return productCatogories_id;
+    }
+
+    public void setProductCatogories_id(Long productCatogories_id) {
+        this.productCatogories_id = productCatogories_id;
+    }
+
+    public String getUnits() {
+        return units;
+    }
+
+    public void setUnits(String units) {
+        this.units = units;
     }
 }
+
