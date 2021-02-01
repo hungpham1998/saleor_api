@@ -54,6 +54,7 @@ public class SerImportTicket {
             Optional<Supplier> opSupplier = repoSupplier.findById(repose.getSupplierId());
             if(!opSupplier.isPresent()){
                 response.put("success", false);
+                response.put("mesager","không tìm thấy nhà cung cấp ");
                 return response;
             }
             List<Units>  listUnit = repoUnit.findBy();
@@ -88,6 +89,7 @@ public class SerImportTicket {
             }
             response.put("data", repose);
             response.put("success", true);
+            response.put("mesager","ok");
             return response;
         }
         catch(Exception e){
@@ -97,5 +99,29 @@ public class SerImportTicket {
         }
     }
 
+
+    public Object findById(Long id){
+        Optional<ImportTicket> opImport = repoImportTicket.findById(id);
+        if(!opImport.isPresent()){
+            response.put("success", false);
+            response.put("mesager","không tìm thấy phiếu nhập ");
+            return response;
+        }
+//        DTOImportTicket data = new DTOImportTicket();
+//        List<DTOImportTicketDetail> listImport = new ArrayList<>();
+//        List<D>
+        return response;
+    }
+
+    public DTOImportTicket convertImportTicket(ImportTicket importTicket, List<ImportTicketDetail> listImportDetail){
+        DTOImportTicket data = new DTOImportTicket();
+        data = mapperImportTicket.toDto(importTicket);
+        data.setSupplierTitle(importTicket.getSupplier().getTitle());
+//        data.setModifiedBy(importTicket.getModifiedBy());
+//        data.setCreatedDate(importTicket.getCreatedDate());
+//        data.setPhone(importTicket.getPhone());
+//        data.se
+        return data;
+    }
 
 }

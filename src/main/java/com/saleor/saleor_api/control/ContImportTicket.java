@@ -19,10 +19,14 @@ public class ContImportTicket {
     @Autowired
     SerImportTicket serImportTicket;
 
+
+
     @RequestMapping(value="/ins",method = RequestMethod.POST)
     @CrossOrigin(origins="*",maxAge = 3600)
     public ResponseEntity<?> insSent(@RequestBody DTOImportTicket prInput)
     {
         return new ResponseEntity<>(serImportTicket.InsSent(prInput), HttpStatus.OK);
     }
+
+
 }
