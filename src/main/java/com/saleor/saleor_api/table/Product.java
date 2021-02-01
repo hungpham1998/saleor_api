@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,7 +22,7 @@ import java.util.Set;
 @Table(name = "product")
 public class Product {
     @Id
-    @Column(name = "id")
+    @Column(name = "id",  nullable = false, unique = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -49,22 +51,22 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     Date modifiedDate ;
 
-    @Column(name = "barcode") // mô tả sp
+    @Column(name = "barcode")
     private String barcode;
 
-    @Column(name = "qrcode") // mô tả sp
+    @Column(name = "qrcode")
     private String qrcode;
 
-    @Column(name = "content") // mô tả sp
+    @Column(name = "content")
     private String content;
 
-    @Column(name = "price")// giá
+    @Column(name = "price")
     private Double price;
 
-    @Column(name = "salePrice")// giá giảm
+    @Column(name = "salePrice")
     private Double salePrice;
 
-    @Column(name = "descs") // mô tả sp
+    @Column(name = "descs")
     private String descs;
 
     @Column(name = "quantity_sold") //Số lượng đã bán
@@ -77,36 +79,40 @@ public class Product {
     @CollectionTable(name = "ref_product_images")
     private List<String> images;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Unit_id")
-    private Units units;
+//    @ManyToOne
+//    @JoinColumn(name = "productProperties_id",nullable = false)
+//    private ProductProperties productProperties;
 
+    // n tags n product
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+
+    @JoinTable(name = "ref_product_properties",
+            joinColumns = @JoinColumn(
+                    name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "product_properties_id", referencedColumnName = "id"))
     @JsonIgnore
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private Set<ProductProperties> listProductProperties = new HashSet<>();
-
+    private List<ProductProperties> productProperties;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
-//    @ManyToOne
-//    @JoinColumn(name = "orderDetail_id",nullable = false)
-//    private OrderDetail orderDetail;
 
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<ImportTicketDetail> importTicketDetails = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "ref_product_preperies",
-            joinColumns = @JoinColumn(
-                    name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "product_catogories_id", referencedColumnName = "id"))
     @JsonIgnore
-    private List<ProductCatogories> productCatogories;
+    @ManyToOne()
+    @JoinColumn(name = "ProductCatogories_id",nullable = false)
+    private ProductCatogories productCatogories;
+
+    // Unit 1-n Product
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Unit_id")
+    private Units units;
 }

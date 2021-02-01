@@ -10,7 +10,11 @@ import java.util.Optional;
 @Repository
 public interface RepoProduct extends JpaRepository<Product,Long> {
     List<Product> findAll();
-    Optional<Product> findById(Long id);
-
+//    Optional<Product> findById(Long id);
     List<Product> findBy();
+//    Optional<Product> findByNameAndAndBarcode(String name,String barcode);
+    List<Product>findAllBy(Pageable pageable);
+    Optional<Product>findById(Long id);
+    List<Product> findBySku(String query);
+
 }

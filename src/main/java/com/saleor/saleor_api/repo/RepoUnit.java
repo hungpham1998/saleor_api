@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface RepoUnit extends JpaRepository<Units, Long> {
     List<Units> findBy();
+    List<Units> findByName(String name);
 }
